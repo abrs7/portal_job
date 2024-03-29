@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-fi)mojxpl2u-^@0o8n-6euojy9jcy=ha=k(0(#1vo=#x^@ruq8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -52,6 +52,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+    
+# ]
 
 ROOT_URLCONF = 'job_portal.urls'
 

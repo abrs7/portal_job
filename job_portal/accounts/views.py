@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import CandidateSignUpForm, LoginForm, CompanySignUpForm, ContractorSignUpForm, AdminSignUpForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from .models import User
+from django.contrib.auth.decorators import login_required
 # Create your views here
 def index(request):
     return render(request,'index.html')
@@ -76,14 +77,10 @@ def contractor_register(request):
         form = ContractorSignUpForm()
         return render(request, 'contractor_register.html', {'form': form})        
 
-# def company_signup(request):
-#     msg = None
-#     if request.method == 'POST':
-#         form =         
+    
 
 def login(request):
     form = LoginForm(request.POST or None)
-    # msg = None 
 
     if request.method == 'POST':
         if form.is_valid():
@@ -91,26 +88,29 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, email=email, password=password)
             if user is not None:
+                auth_login(request, user)  # Set the user in the session
                 if user.is_candidate:
                     return redirect('home_candidate')
                 if user.is_company:
                     return redirect('home_company')
                 if user.is_contractor:
                     return redirect('home_contractor')
-                # login(request, user)
-                messages.success(request,'Successfully loged in!')
-                return redirect('home_candidate')
             else:
                 msg = 'Invalid Credentials'
-                messages.error(request, msg) 
-    return render(request, 'login.html', {'form': form})        
+                messages.error(request, msg)
 
+    return render(request, 'login.html', {'form': form})
+@login_required
 def home_candidate(request):
     user = request.user
-    return render(request, 'home_candidate.html',{'user':user})            
+    return render(request, 'home_candidate.html',{'user':request.user})  
+
+@login_required          
 def home_company(request):
    
     return render(request, 'home_company.html')
+
+@login_required
 def home_contractor(request):
    
     return render(request, 'home_contractor.html')

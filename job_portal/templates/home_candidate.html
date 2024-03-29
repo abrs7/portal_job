@@ -7,7 +7,10 @@
 </head>
 <body>
     <h5>Candidate</h5>
-    <h4>{{ user }}</h4>
-    
+    {% if user.is_candidate %}
+    <h4>{{user.email  }}</h4>
+    {% else %}
+    <h4>Unknown </h4>
+    {% endif %}
 </body>
 </html>

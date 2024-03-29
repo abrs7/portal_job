@@ -51,16 +51,29 @@ class CandidateSignUpForm(UserCreationForm):
     )  
     class Meta():
         model = User
-        fields = ['username','email', 'password1', 'password2']
-          
+        fields = ['username','email', 'password1', 'password2', 'is_candidate']
+
+        widget = {
+            'username': forms.HiddenInput(),
+            'is_candidate': forms.HiddenInput(),
+        } 
+        labels = {
+            'username': '',
+            'is_candidate': '',
+        }
+        required ={
+            'is_candidate': True,
+        }
+
     def clean_username(self):
         return 'default'
         return username     
     def __init__(self, *args, **kwargs):
         super(CandidateSignUpForm, self).__init__(*args, **kwargs)
-        self.fields['company'].initial = True
-        self.fields['username'].widget = forms.HiddenInput()
         self.fields['username'].required = False
+        self.fields['username'].widget = forms.HiddenInput()
+         
+        
 
     ## Company Signup    
 class CompanySignUpForm(UserCreationForm):

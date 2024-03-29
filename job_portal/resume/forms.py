@@ -8,9 +8,13 @@ class ResumeForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'birth_date', 'occupation', 'bio', 'profile_picture', 'cv']
 
 class EducationForm(forms.ModelForm):
-    model = Education
-    fields = ['degree', 'institution', 'start_date', 'end_date']
+    class Meta:
+        model = Education
+        fields = ['degree', 'institution', 'start_date', 'end_date']
 
 class ExperienceForm(forms.ModelForm):
-    model = Experience
-    fields = ['title', 'company','job_description', 'start_date', 'end_date']    
+    class Meta:
+        model = Experience
+        fields = ['title', 'company','job_description', 'start_date', 'end_date']   
+   
+       
