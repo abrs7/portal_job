@@ -65,9 +65,19 @@ class CandidateSignUpForm(UserCreationForm):
             'is_candidate': True,
         }
 
-    def clean_username(self):
-        return 'default'
-        return username     
+    def clean(self):
+        cleaned_data = super().clean()
+        cleaned_data['is_candidate'] = True
+        return cleaned_data    
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_candidate =True
+        if commit:
+            user.save()
+        return user    
+
+     
     def __init__(self, *args, **kwargs):
         super(CandidateSignUpForm, self).__init__(*args, **kwargs)
         self.fields['username'].required = False

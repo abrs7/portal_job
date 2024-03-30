@@ -20,7 +20,7 @@ class Resume(models.Model):
     # education = models.CharField(max_length=100)
     # experience = models.CharField(max_length=300, blank=True)
     bio = models.TextField(validators=[MaxLengthValidator(limit_value=3000, message='Bio should not exceed 3000 characters')])
-    profile_picture = models.ImageField(upload_to='images/', blank=True, 
+    profile_picture = models.ImageField(upload_to='media/images/', blank=True, 
         validators=[FileExtensionValidator(['jpg', 'jpeg', 'png']), validate_file_size])  # 5 MB limit
     cv = models.FileField(
         upload_to='files/', validators=[FileExtensionValidator(['pdf', 'docx']), validate_file_size])  # 5 MB limit
