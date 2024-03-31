@@ -1,13 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Candidate Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom CSS styles here */
+       
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h5>Contractor</h5>
-    <h4>{{ user }}</h4>
+    <!-- Navbar -->
     
+
+    <!-- Header -->
+    <header class="bg-primary text-white mt-15 py-5">
+        <div class="container text-center">
+            <h1>Contractor User</h1>
+            <h1>Welcome to Your Dashboard</h1>
+            <p class="lead">Manage your profile and view latest updates here.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Job Opportunities</h5>
+                        <p class="card-text">Explore available job opportunities.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Interview Schedule</h5>
+                        <p class="card-text">View and manage your upcoming interviews.</p>
+                        <a href="{% url 'show_resume' %}" class="btn btn-primary">Show Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile Settings</h5>
+                        <p class="card-text">Update your profile information and settings.</p>
+                        <a href="{% url 'create_resume' %}" class="btn btn-primary">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 Candidate Dashboard</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (optional, only needed if you're using Bootstrap JS components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
+
+{% endblock content %}

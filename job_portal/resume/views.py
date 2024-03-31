@@ -39,4 +39,6 @@ def create_resume(request):
     return render(request, 'resume/create_resume.html', {'resume_form': resume_form, 'education_form': education_form, 'experience_form': experience_form})
 def show_resume(request):
     resume = Resume.objects.get(user = request.user)
-    return render(request, 'resume/show_resume.html',{'resume': resume})
+    experiences = resume.experiences.all()
+    educations = resume.educations.all()
+    return render(request, 'resume/show_resume.html',{'resume': resume, 'experiences': experiences, 'educations':educations})

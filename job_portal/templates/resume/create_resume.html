@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +8,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="mb-4">Create Your Resume</h2>
+    <div class="container mt-5 col-md-6">
+        <h2 class="mb-4 text-center">Create Your Resume</h2>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            <!-- Personal Information -->
             <div class="form-group">
                 <label for="first_name">First Name:</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" required>
@@ -40,18 +41,83 @@
                 <label for="cv">CV:</label>
                 <input type="file" class="form-control-file" id="cv" name="cv" accept=".pdf,.docx" required>
             </div>
-            <h3>Education</h3>
-            {{ education_form.as_p }}
+
+            <!-- Education Form -->
+            <div id="education_fields">
+                <h3 class="text-center">Education</h3>
+                <div class="education_field">
+                    <input type="text" class="form-control mb-2" name="education_degree[]" placeholder="Degree" required>
+                    <input type="text" class="form-control mb-2" name="education_institution[]" placeholder="Institution" required>
+                    <input type="date" class="form-control mb-2" name="education_start_date[]" placeholder="Start Date" required>
+                    <input type="date" class="form-control mb-2" name="education_end_date[]" placeholder="End Date" required>
+                    <button type="button" class="btn btn-sm btn-danger remove_education">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-primary mt-3" id="add_education">Add More Education</button>
 
             <!-- Experience Form -->
-            <h3>Experience</h3>
-            {{ experience_form.as_p }}
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div id="experience_fields">
+                <h3 class="text-center">Experience</h3>
+                <div class="experience_field">
+                    <input type="text" class="form-control mb-2" name="experience_title[]" placeholder="Title" required>
+                    <input type="text" class="form-control mb-2" name="experience_company[]" placeholder="Company" required>
+                    <textarea class="form-control mb-2" name="experience_job_description[]" rows="4" placeholder="Job Description" required></textarea>
+                    <input type="date" class="form-control mb-2" name="experience_start_date[]" placeholder="Start Date" required>
+                    <input type="date" class="form-control mb-2" name="experience_end_date[]" placeholder="End Date" required>
+                    <button type="button" class="btn btn-sm btn-danger remove_experience">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-primary mt-3" id="add_experience">Add More Experience</button>
+            <br class="mb-10"> 
+            <!-- Submit Button -->
+           <center>  <button type="submit" class="btn btn-primary mt-3 text-center">Submit</button></center>
         </form>
     </div>
+
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for dynamic form fields -->
+    <script>
+        $(document).ready(function(){
+            // Add more education fields
+            $("#add_education").click(function(){
+                $("#education_fields").append(
+                    '<div class="education_field">' +
+                    '<input type="text" class="form-control mb-2" name="education_degree[]" placeholder="Degree" required>' +
+                    '<input type="text" class="form-control mb-2" name="education_institution[]" placeholder="Institution" required>' +
+                    '<input type="date" class="form-control mb-2" name="education_start_date[]" placeholder="Start Date" required>' +
+                    '<input type="date" class="form-control mb-2" name="education_end_date[]" placeholder="End Date" required>' +
+                    '<button type="button" class="btn btn-sm btn-danger remove_education">Remove</button>' +
+                    '</div>'
+                );
+            });
+
+            // Remove education field
+            $("#education_fields").on("click", ".remove_education", function(){
+                $(this).parent().remove();
+            });
+
+            // Add more experience fields
+            $("#add_experience").click(function(){
+                $("#experience_fields").append(
+                    '<div class="experience_field">' +
+                    '<input type="text" class="form-control mb-2" name="experience_title[]" placeholder="Title" required>' +
+                    '<input type="text" class="form-control mb-2" name="experience_company[]" placeholder="Company" required>' +
+                    '<textarea class="form-control mb-2" name="experience_job_description[]" rows="4" placeholder="Job Description" required></textarea>' +
+                    '<input type="date" class="form-control mb-2" name="experience_start_date[]" placeholder="Start Date" required>' +
+                    '<input type="date" class="form-control mb-2" name="experience_end_date[]" placeholder="End Date" required>' +
+                    '<button type="button" class="btn btn-sm btn-danger remove_experience">Remove</button>' +
+                    '</div>'
+                );
+            });
+
+            // Remove experience field
+            $("#experience_fields").on("click", ".remove_experience", function(){
+                $(this).parent().remove();
+            });
+        });
+    </script>
 </body>
-</html>
+{% endblock content %}

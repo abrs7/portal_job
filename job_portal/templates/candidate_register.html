@@ -13,7 +13,7 @@
         <h4>Django Job Portal</h4>
         <h3>Candidate SignUp</h3>
     </div>
-    <form method="post">
+    <form method="POST">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Register</button>

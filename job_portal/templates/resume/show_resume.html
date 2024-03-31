@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Custom styles */
-        body {
-            padding-top: 56px; /* Adjust based on your navbar height */
-        }
+        
         .profile-header {
             background-color: #007bff;
             color: #fff;
@@ -35,7 +35,8 @@
 <!-- Profile Header -->
 <header class="profile-header text-center">
     <div class="container">
-        <img src="{{ MEDIA_ROOT }}images/cbe-modified.jpg" alt="Profile Picture" class="profile-avatar">
+        <img src="{{ resume.profile_picture.url }}" alt="Profile Picture" class="profile-avatar">
+      
         <h1 class="mt-3">{{resume.first_name}} {{resume.last_name}}</h1>
         <p class="lead">{{resume.occupation}}</p>
     </div>
@@ -70,22 +71,27 @@
         <h2>Resume</h2>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Education</h5>
-                <p class="card-text">Bachelor's Degree in Computer Science - University XYZ</p>
+                <h4 class="card-title text-primary">Education</h4>
+               {% for education in educations %}
+               <h5>{{education.institution}}</h5>
+               <h6>{{education.degree}}</h6>
+               <p>{{education.start_date}} - {{education.end_date}}</p>
+               <br>
+               {% endfor %}
             </div>
         </div>
         <div class="card mt-3">
             <div class="card-body">
-                <h5 class="card-title">Experience</h5>
-                <p class="card-text">Software Engineer at ABC Company (2018 - Present)</p>
+                <h4 class="card-title text-primary">Experience</h4>
+                {% for experience in experiences %}
+                <h5>{{ experience.title }} at {{ experience.company }}</h5>
+                <h6>{{experience.job_description}}</h6>
+                <p>{{experience.start_date}} - {{experience.end_date}}</p>
+                <br>
+              {% endfor %}
             </div>
         </div>
-        <div class="card mt-3">
-            <div class="card-body">
-                <h5 class="card-title">Skills</h5>
-                <p class="card-text">Python, JavaScript, HTML/CSS, Django, React</p>
-            </div>
-        </div>
+        
     </div>
 </section>
 
@@ -95,3 +101,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}
