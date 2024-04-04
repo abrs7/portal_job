@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h6>Company profile</h6>
+    <form method="POST"> 
+    {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Profile">
+        </form>
+        {% for message in mesages%}
+        <h2>{{messages}}</h2>
+        {% endfor %}
+</body>
+
+
+{% endblock content%}

@@ -1,12 +1,17 @@
 from django import forms
+
 from .models import CompanyProfile, ContractorProfile
 # from django.forms import ModelForm
 
 class CompanyProfileForm(forms.ModelForm):
     class Meta:
         model = CompanyProfile
-        fields = ['name','logo','established_date', 'address', 'license_image', 'company_email', 'company_website', 'company_detail' ]
+        fields = ['name','established_date', 'address', 'company_email', 'company_website', 'company_detail' ]
 
+        # widgets = {
+        #     'logo': forms.FileInput(attrs={'accept': 'image/*'}),
+        #     'license_image': forms.FileInput(attrs={'accept': 'image/*'}),
+        # }
 
 
 class ContractorProfileForm(forms.ModelForm):

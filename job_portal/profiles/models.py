@@ -9,10 +9,10 @@ from .validators import size_validator
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length = 100, blank=False)
-    logo = models.ImageField(upload_to='company_logo', validators=[FileExtensionValidator(['pdf', 'png']), size_validator])
+    # logo = models.ImageField(upload_to='company_logo', validators=[FileExtensionValidator(['pdf', 'png', 'jpg']), size_validator])
     established_date = models.CharField(max_length = 100 )
     address = models.CharField(max_length = 300 )
-    license_image = models.ImageField(upload_to='company_license', validators=[FileExtensionValidator(['pdf', 'png']), size_validator])
+    # license_image = models.ImageField(upload_to='company_license', validators=[FileExtensionValidator(['pdf', 'png','jpg']), size_validator])
     company_email = models.EmailField(max_length =100)
     company_website = models.URLField(max_length= 100 )
     company_detail = models.TextField(max_length= 10000)
