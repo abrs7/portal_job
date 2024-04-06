@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
 from .models import User
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from profiles.models import CompanyProfile, ContractorProfile
+
 # Create your views here
 def index(request):
     return render(request,'index.html')
@@ -74,22 +77,24 @@ def contractor_register(request):
             # Check if the email already exists
             if User.objects.filter(email=email).exists():
                 messages.error(request, 'Account is already taken. Please choose a different one.')
-                return render(request, 'contractor_register.html', {'form': form})
-            # If email is unique, save the form
-            try:
-                user = form.save()
-                messages.success(request, 'User created successfully. You can now log in.')
-                return redirect('login')
-            except IntegrityError:
-                messages.error(request, 'An error occurred while saving the user. Please try again.')
-                return render(request, 'contractor_register.html', {'form': form})
-        else:
-            return render(request, 'contractor_register.html', {'form': form})
+                return redirect('index')
+            
+            else:
+                # Set a default username (e.g., based on the email)
+                username = email.split('@')[0]  # Use the part before the '@' symbol as the username
+                # Create the user with the default username
+                try:
+                    user = form.save(commit=False)
+                    user.username = username
+                    user.save()
+                    messages.success(request, 'User created successfully. You can now log in.')
+                    return redirect('login')
+                except IntegrityError:
+                    messages.error(request, 'An error occurred while saving the user. Please try again.')
+                    return render(request, 'contractor_register.html', {'form': form})
     else:
         form = ContractorSignUpForm()
-        return render(request, 'contractor_register.html', {'form': form})        
-
-    
+    return render(request, 'contractor_register.html', {'form': form})
 
 def login(request):
     form = LoginForm(request.POST or None)
@@ -123,12 +128,16 @@ def home_candidate(request):
 @login_required          
 def home_company(request):
    
-    return render(request, 'home_company.html')
+    user = request.user
+    company_profile = get_object_or_404(CompanyProfile, user_id = user.id)
+
+    return render(request, 'home_company.html',{'company_profile':company_profile})
 
 @login_required
 def home_contractor(request):
-   
-    return render(request, 'home_contractor.html')
+    user = request.user
+    contractor_profile = get_object_or_404(ContractorProfile, user_id = user.id)
+    return render(request, 'home_contractor.html', {'contractor_profile': contractor_profile})
                   
 def index(request):
    

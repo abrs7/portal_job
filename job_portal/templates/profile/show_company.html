@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Welcome to job creation
+    we are glad to see you
+    <br>
+    {{company_profile.name}}
+
+    <img src="{{company_profile.logo.url}}" alt="logo" width="20%" height="30%">
+    
+</body>
+{% endblock content %}

@@ -34,9 +34,9 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Job Opportunities</h5>
+                        <h5 class="card-title">Create Job</h5>
                         <p class="card-text">Explore available job opportunities.</p>
-                        <a href="#" class="btn btn-primary">Explore</a>
+                        <a href="{% url 'create_job' %}" class="btn btn-primary">Explore</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,11 @@
                     <div class="card-body">
                         <h5 class="card-title">Profile</h5>
                         <p class="card-text">View and manage your upcoming interviews.</p>
+                        {% if company_profile %}
+                        <a href="{% url 'edit_profile' slug=company_profile.slug %}" class="btn btn-primary">Edit Profile</a>
+                        {% else %}
                         <a href="{% url 'company_profile' %}" class="btn btn-primary">Show Profile</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

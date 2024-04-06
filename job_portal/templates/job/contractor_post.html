@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Post</title>
+</head>
+<body>
+    <h6>Contractor Job Post</h6>
+   <form method="POST">
+   {% csrf_token %}
+   {{form.as_p}} 
+
+   <input type="submit" value="Create Job">
+   </form>
+
+</body>
+
+{% endblock content %}

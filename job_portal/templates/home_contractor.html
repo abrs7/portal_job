@@ -17,12 +17,12 @@
 </head>
 <body>
     <!-- Navbar -->
-    
-
+  
     <!-- Header -->
-    <header class="bg-primary text-white mt-15 py-5">
+    <br class="mt-6 pb-5" style="background-color: #ffffff;"> 
+    <header class="bg-primary mt-15 text-white py-5" style=".bg-golden { background-color:rgb(224, 228, 34); } ">
         <div class="container text-center">
-            <h1>Contractor User</h1>
+            <h1>Company User</h1>
             <h1>Welcome to Your Dashboard</h1>
             <p class="lead">Manage your profile and view latest updates here.</p>
         </div>
@@ -43,9 +43,13 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Interview Schedule</h5>
+                        <h5 class="card-title">Profile</h5>
                         <p class="card-text">View and manage your upcoming interviews.</p>
-                        <a href="{% url 'show_resume' %}" class="btn btn-primary">Show Profile</a>
+                        {% if contractor_profile %}
+                        <a href="{% url 'contractor_edit' slug=contractor_profile.slug %}" class="btn btn-primary">Show Profile</a>
+                        {% else %}
+                        <a href="{% url 'contractor_profile' %}" class="btn btn-primary">Show Profile</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -54,7 +58,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Profile Settings</h5>
                         <p class="card-text">Update your profile information and settings.</p>
-                        <a href="{% url 'create_resume' %}" class="btn btn-primary">Edit Profile</a>
+                        <a href="" class="btn btn-primary">Edit Profile</a>
                     </div>
                 </div>
             </div>
